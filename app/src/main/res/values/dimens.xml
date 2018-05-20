@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="card_height">160dp</dimen>
+    <dimen name="card_image_height">100dp</dimen>
+
+    <!-- Generic with ratio -->
+    <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin_medium">8dp</dimen>
+    <dimen name="margin_medium_2">16dp</dimen>
+    <dimen name="margin_medium_3">20dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_xlarge">32dp</dimen>
+    <dimen name="margin_xxlarge">48dp</dimen>
+    <dimen name="margin_card_medium">6dp</dimen>
+    <dimen name="margin_card_medium_2">12dp</dimen>
+
+    <dimen name="margin_small_n">-4dp</dimen>
+    <dimen name="margin_card_medium_n">-6dp</dimen>
+    <dimen name="margin_medium_n">-8dp</dimen>
+    <dimen name="margin_card_medium_2_n">-12dp</dimen>
+    <dimen name="margin_medium_2_n">-16dp</dimen>
+    <dimen name="margin_medium_3_n">-18dp</dimen>
+    <dimen name="margin_large_n">-24dp</dimen>
+    <dimen name="margin_xlarge_n">-32dp</dimen>
+
+    <dimen name="text_smaller">10sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="text_regular">14sp</dimen>
+    <dimen name="text_regular_2x">16sp</dimen>
+    <dimen name="text_regular_3x">20sp</dimen>
+    <dimen name="text_heading_1x">24sp</dimen>
+    <dimen name="text_heading_2x">32sp</dimen>
+    <dimen name="text_big">40sp</dimen>
+    <dimen name="text_big_2x">60sp</dimen>
+    <dimen name="text_big_3x">80sp</dimen>
+
+    <dimen name="list_item_bottom_spacing">4dp</dimen>
+    <dimen name="list_item_right_spacing">8dp</dimen>
+
+    <dimen name="icon_dimen_regular">40dp</dimen>
+
+    <dimen name="bg_dialog_button_radius">4dp</dimen>
+    <dimen name="dialog_button_height">35dp</dimen>
+
+
+    <dimen name="product_list_image_size">180dp</dimen>
+    <dimen name="product_category_button_size">74dip</dimen>
+    <dimen name="header_background_height">220dp</dimen>
+
+
+    <dimen name="user_profile_width">80dp</dimen>
+    <dimen name="user_profile_height">80dp</dimen>
+    <dimen name="corner_radius">40dp</dimen>
+
+    <dimen name="item_photo_width">180dp</dimen>
+    <dimen name="item_photo_height">170dp</dimen>
+
+    <dimen name="bottom_navigation_view">56dp</dimen>
+</resources>

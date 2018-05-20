@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimaryDark"
+            app:titleTextColor="@color/white_full">
+
+        </android.support.v7.widget.Toolbar>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tl_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/colorAccent"
+        android:background="@color/colorPrimaryDark"
+        app:tabSelectedTextColor="@color/white_full"
+        app:tabTextColor="@color/secondary_text"/>
+</android.support.design.widget.AppBarLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>
+<android.support.design.widget.BottomNavigationView
+    android:id="@+id/bnv"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_navigation_view"
+    android:background="@color/bottom_nav_background"
+    app:menu="@menu/nav_items"
+    app:itemTextColor="@color/nav_items_color"
+    app:itemIconTint="@color/nav_items_color"
+    android:layout_gravity="bottom"/>
+</android.support.design.widget.CoordinatorLayout>
