@@ -3,17 +3,10 @@ package xyz.zzp.simplehabit.viewholders;
 import android.view.View;
 import android.widget.TextView;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import xyz.zzp.simplehabit.R;
-import xyz.zzp.simplehabit.HomeScreenVO;
-import xyz.zzp.simplehabit.data.model.CurrentProgramModel;
 import xyz.zzp.simplehabit.data.vo.CurrentProgramVO;
-import xyz.zzp.simplehabit.events.LoadedCurrentProgramEvent;
 
 public class CurrentProgramViewHolder extends BaseViewHolder<CurrentProgramVO>{
 

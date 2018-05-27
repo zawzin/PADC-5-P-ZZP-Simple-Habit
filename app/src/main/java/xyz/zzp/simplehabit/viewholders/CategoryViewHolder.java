@@ -7,10 +7,8 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import xyz.zzp.simplehabit.HomeScreenVO;
 import xyz.zzp.simplehabit.R;
-import xyz.zzp.simplehabit.adapters.CategoryAdapter;
-import xyz.zzp.simplehabit.adapters.ItemCategoryAdapter;
+import xyz.zzp.simplehabit.adapters.ProgramAdapter;
 import xyz.zzp.simplehabit.data.vo.CategoryProgramVO;
 
 public class CategoryViewHolder extends BaseViewHolder<CategoryProgramVO>{
@@ -21,13 +19,13 @@ public class CategoryViewHolder extends BaseViewHolder<CategoryProgramVO>{
     @BindView(R.id.rv_programs)
     RecyclerView rvPrograms;
 
-    private ItemCategoryAdapter mCategoryAdapter;
+    private ProgramAdapter mCategoryAdapter;
 
     public CategoryViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this,itemView);
 
-        mCategoryAdapter = new ItemCategoryAdapter(itemView.getContext());
+        mCategoryAdapter = new ProgramAdapter(itemView.getContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(itemView.getContext(),LinearLayoutManager.HORIZONTAL,false);
 
         rvPrograms.setLayoutManager(linearLayoutManager);

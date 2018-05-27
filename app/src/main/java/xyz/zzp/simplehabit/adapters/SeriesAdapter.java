@@ -14,7 +14,6 @@ import xyz.zzp.simplehabit.data.vo.TopicsVO;
 import xyz.zzp.simplehabit.viewholders.BaseViewHolder;
 import xyz.zzp.simplehabit.viewholders.CategoryViewHolder;
 import xyz.zzp.simplehabit.viewholders.CurrentProgramViewHolder;
-import xyz.zzp.simplehabit.viewholders.ItemInTopicViewHolder;
 import xyz.zzp.simplehabit.viewholders.TopicViewHolder;
 
 public class SeriesAdapter extends BaseRecyclerAdapter<BaseViewHolder, HomeScreenVO> {
@@ -42,7 +41,7 @@ public class SeriesAdapter extends BaseRecyclerAdapter<BaseViewHolder, HomeScree
         }
         else if(viewType == ALL_TOPICS){
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_topic,parent,false);
-            viewHolder = new ItemInTopicViewHolder(itemView);
+            viewHolder = new TopicViewHolder(itemView);
         }
           return viewHolder;
     }

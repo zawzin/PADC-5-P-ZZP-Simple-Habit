@@ -8,13 +8,13 @@ import butterknife.ButterKnife;
 import xyz.zzp.simplehabit.R;
 import xyz.zzp.simplehabit.data.vo.ProgramVO;
 
-public class ItemCategoryViewHolder extends BaseViewHolder<ProgramVO> {
+public class ProgramViewHolder extends BaseViewHolder<ProgramVO> {
 
     @BindView(R.id.tv_program_title)
     TextView tvProgramTitle;
 
 
-    public ItemCategoryViewHolder(View itemView) {
+    public ProgramViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this,itemView);
     }
