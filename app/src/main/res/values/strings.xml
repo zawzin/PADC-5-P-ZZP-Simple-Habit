@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BottomNav</string>
+    <string name="app_name">Simple Habit</string>
     <string name="nav_mediate">Meditate</string>
     <string name="nav_me">Me</string>
     <string name="nav_more">More</string>

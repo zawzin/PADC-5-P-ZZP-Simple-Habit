@@ -1,93 +1,70 @@
 package xyz.zzp.simplehabit.adapters;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import xyz.zzp.simplehabit.R;
-import xyz.zzp.simplehabit.viewholders.HealthyMindViewHolder;
-import xyz.zzp.simplehabit.viewholders.MorningMediationsViewHolder;
-import xyz.zzp.simplehabit.viewholders.MostPopularViewHolder;
-import xyz.zzp.simplehabit.viewholders.NewOnSimpleHabitViewHolder;
+import xyz.zzp.simplehabit.HomeScreenVO;
+import xyz.zzp.simplehabit.data.vo.CategoryProgramVO;
+import xyz.zzp.simplehabit.data.vo.CurrentProgramVO;
+import xyz.zzp.simplehabit.data.vo.TopicsVO;
+import xyz.zzp.simplehabit.viewholders.BaseViewHolder;
+import xyz.zzp.simplehabit.viewholders.CategoryViewHolder;
+import xyz.zzp.simplehabit.viewholders.CurrentProgramViewHolder;
+import xyz.zzp.simplehabit.viewholders.ItemInTopicViewHolder;
 import xyz.zzp.simplehabit.viewholders.TopicViewHolder;
-import xyz.zzp.simplehabit.viewholders.SeriesViewHolder;
 
-public class SeriesAdapter extends RecyclerView.Adapter {
+public class SeriesAdapter extends BaseRecyclerAdapter<BaseViewHolder, HomeScreenVO> {
 
     private static final int START_HERE = 0;
-    private static final int MORNING_MEDIATIONS = 1;
-    private static final int A_HEALTHY_MIND = 2;
-    private static final int NEW_ON_SIMPLE_HABIT = 3;
-    private static final int MOST_POPULAR = 4;
-    private static final int ALL_TOPICS = 5;
+    private static final int CATEGORY = 1;
+    private static final int ALL_TOPICS = 2;
+
+    public SeriesAdapter(Context context) {
+        super(context);
+    }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        RecyclerView.ViewHolder viewHolder = null;
-        switch (viewType) {
-            case START_HERE:
-                viewHolder = new SeriesViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_start_here,parent,false));
-                break;
-            case MORNING_MEDIATIONS:
-                viewHolder = new MorningMediationsViewHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.layout_morning_mediations, parent, false));
-                break;
-            case A_HEALTHY_MIND:
-                viewHolder = new HealthyMindViewHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.layout_healthy_mind, parent, false));
-                break;
-            case NEW_ON_SIMPLE_HABIT:
-                viewHolder = new NewOnSimpleHabitViewHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.layout_new_on_simple_habit, parent, false));
-                break;
-            case MOST_POPULAR:
-                viewHolder = new MostPopularViewHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.layout_most_popular, parent, false));
-                break;
-            case ALL_TOPICS:
-                viewHolder = new TopicViewHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.layout_topic, parent, false));
-                break;
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        BaseViewHolder viewHolder = null;
+        if(viewType == START_HERE){
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_current_program,parent,false);
+            viewHolder = new CurrentProgramViewHolder(itemView);
         }
-        return viewHolder;
+        else if(viewType == CATEGORY){
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category,parent,false);
+            viewHolder = new CategoryViewHolder(itemView);
+        }
+        else if(viewType == ALL_TOPICS){
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_topic,parent,false);
+            viewHolder = new ItemInTopicViewHolder(itemView);
+        }
+          return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
+    public void onBindViewHolder(BaseViewHolder holder, int position) {
+        holder.setData(mData.get(position));
     }
 
     @Override
     public int getItemViewType(int position) {
-        int i = 0;
-        switch (position) {
-            case 0:
-                i = START_HERE;
-                break;
-            case 1:
-                i = MORNING_MEDIATIONS;
-                break;
-            case 2:
-                i = A_HEALTHY_MIND;
-                break;
-            case 3:
-                i = NEW_ON_SIMPLE_HABIT;
-                break;
-            case 4:
-                i = MOST_POPULAR;
-                break;
-            case 5:
-                i = ALL_TOPICS;
-                break;
-        }
-        return i;
+        if(mData.get(position) instanceof CurrentProgramVO)
+            return START_HERE;
+        else if(mData.get(position) instanceof CategoryProgramVO)
+            return CATEGORY;
+        else if(mData.get(position) instanceof TopicsVO)
+            return ALL_TOPICS;
+        return position;
     }
 
     @Override
     public int getItemCount() {
-        return 6;
+        return mData.size();
     }
 }

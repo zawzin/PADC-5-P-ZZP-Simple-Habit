@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xyz.zzp.simplehabit.CCVUserProfile xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/dummy_image"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="@dimen/margin_large"
+        android:layout_gravity="center_horizontal"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello"
+        android:textColor="@color/white_full"
+        android:textSize="@dimen/margin_medium_2"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_small"/>
+</xyz.zzp.simplehabit.CCVUserProfile>

@@ -1,4 +1,4 @@
-package xyz.zzp.simplehabit;
+package xyz.zzp.simplehabit.activities;
 
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import xyz.zzp.simplehabit.R;
 import xyz.zzp.simplehabit.adapters.ItemAdapter;
 import xyz.zzp.simplehabit.fragments.OnTheGoFragment;
 import xyz.zzp.simplehabit.fragments.SeriesFragment;

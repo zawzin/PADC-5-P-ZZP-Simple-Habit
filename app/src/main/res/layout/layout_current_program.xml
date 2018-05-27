@@ -34,6 +34,7 @@
                 android:src="@drawable/dummy_image" />
 
             <TextView
+                android:id="@+id/tv_current_program_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="80dp"
@@ -43,7 +44,7 @@
                 android:textSize="@dimen/text_heading_1x" />
 
             <TextView
-                android:id="@+id/btn_start"
+                android:id="@+id/tv_current_period"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -67,6 +68,7 @@
                 android:drawableTint="@color/white_full" />
 
             <TextView
+                android:id="@+id/tv_length"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/margin_medium_2"
