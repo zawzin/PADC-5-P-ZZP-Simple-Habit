@@ -7,7 +7,7 @@ import xyz.zzp.simplehabit.data.model.SeriesModel;
 public class SimpleHabit extends Application {
 
     public static final String LOG_TAG = "Simple Habit";
-    public static final String CURRENT_PROGRAM = "CurrentProgram";
+    public static final String PROGRAM_ID = "ProgramId";
 
     @Override
     public void onCreate() {

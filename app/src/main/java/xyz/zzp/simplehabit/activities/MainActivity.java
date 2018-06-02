@@ -11,7 +11,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import xyz.zzp.simplehabit.R;
 import xyz.zzp.simplehabit.adapters.ItemAdapter;
-import xyz.zzp.simplehabit.delegates.TapCurrentProgram;
 import xyz.zzp.simplehabit.fragments.OnTheGoFragment;
 import xyz.zzp.simplehabit.fragments.SeriesFragment;
 import xyz.zzp.simplehabit.fragments.TeacherFragment;

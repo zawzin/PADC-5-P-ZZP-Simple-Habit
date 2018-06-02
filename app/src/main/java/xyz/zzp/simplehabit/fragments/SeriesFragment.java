@@ -8,7 +8,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,15 +20,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import xyz.zzp.simplehabit.R;
 import xyz.zzp.simplehabit.SimpleHabit;
-import xyz.zzp.simplehabit.activities.CurrentProgramActivity;
+import xyz.zzp.simplehabit.activities.ProgramDetailActivity;
 import xyz.zzp.simplehabit.adapters.SeriesAdapter;
 import xyz.zzp.simplehabit.data.model.SeriesModel;
-import xyz.zzp.simplehabit.data.vo.CurrentProgramVO;
-import xyz.zzp.simplehabit.delegates.TapCurrentProgram;
+import xyz.zzp.simplehabit.delegates.TapCurrentProgramDelegate;
 import xyz.zzp.simplehabit.events.DataReadyEvent;
 import xyz.zzp.simplehabit.events.NetworkErrorEvent;
 
-public class SeriesFragment extends Fragment implements TapCurrentProgram{
+public class SeriesFragment extends Fragment implements TapCurrentProgramDelegate {
 
     @BindView(R.id.rv_list)
     RecyclerView rvList;
@@ -80,16 +78,10 @@ public class SeriesFragment extends Fragment implements TapCurrentProgram{
     }
 
     @Override
-    public void onTapCurrentProgram(CurrentProgramVO currentProgram) {
+    public void onTapCurrentProgram(String programId) {
 
-        int viewType = 0;
-        int dataSizeInAdapter = mSeriesAdapter.getItemCount();
-        for(int i=0 ; i<dataSizeInAdapter; i++){
-            if(SeriesModel.getsObjectInstance().getSeriesData().get(i) instanceof CurrentProgramVO)
-                viewType=i;
-        }
-        Intent intent = CurrentProgramActivity.newIntent(getContext());
-        intent.putExtra(SimpleHabit.CURRENT_PROGRAM,viewType);
+        Intent intent = ProgramDetailActivity.newIntent(getContext());
+        intent.putExtra(SimpleHabit.PROGRAM_ID,programId);
         startActivity(intent);
     }
 }

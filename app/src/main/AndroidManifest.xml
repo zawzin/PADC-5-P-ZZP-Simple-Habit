@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.CurrentProgramActivity"
+        <activity android:name=".activities.ProgramDetailActivity"
             android:label="Sample Habit Starter"
             android:theme="@style/AppTheme.NoActionBar">
 

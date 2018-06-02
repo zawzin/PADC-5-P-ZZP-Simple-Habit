@@ -9,7 +9,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import xyz.zzp.simplehabit.R;
 import xyz.zzp.simplehabit.data.vo.CurrentProgramVO;
-import xyz.zzp.simplehabit.delegates.TapCurrentProgram;
+import xyz.zzp.simplehabit.delegates.TapCurrentProgramDelegate;
 
 public class CurrentProgramViewHolder extends BaseViewHolder<CurrentProgramVO>{
 
@@ -27,13 +27,13 @@ public class CurrentProgramViewHolder extends BaseViewHolder<CurrentProgramVO>{
 
     private CurrentProgramVO mCurrentProgramVO;
 
-    private TapCurrentProgram mTapCurrentProgram;
+    private TapCurrentProgramDelegate mTapCurrentProgramDelegate;
 
-    public CurrentProgramViewHolder(View itemView,TapCurrentProgram delegate) {
+    public CurrentProgramViewHolder(View itemView,TapCurrentProgramDelegate delegate) {
         super(itemView);
         ButterKnife.bind(this,itemView);
 
-        mTapCurrentProgram = delegate;
+        mTapCurrentProgramDelegate = delegate;
         rlCurrentProgram.setOnClickListener(this);
     }
 
@@ -51,6 +51,6 @@ public class CurrentProgramViewHolder extends BaseViewHolder<CurrentProgramVO>{
     @Override
     public void onClick(View view) {
         Toast.makeText(itemView.getContext(),"click current program",Toast.LENGTH_SHORT).show();
-        mTapCurrentProgram.onTapCurrentProgram(mCurrentProgramVO);
+        mTapCurrentProgramDelegate.onTapCurrentProgram(mCurrentProgramVO.getProgramId());
     }
 }

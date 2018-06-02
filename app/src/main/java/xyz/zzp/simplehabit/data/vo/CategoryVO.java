@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class CategoryProgramVO implements HomeScreenVO{
+public class CategoryVO implements HomeScreenVO{
 
     @SerializedName("category-id")
     private String categoryId;

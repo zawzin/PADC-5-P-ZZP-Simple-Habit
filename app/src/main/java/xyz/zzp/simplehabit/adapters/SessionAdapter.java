@@ -5,12 +5,14 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import xyz.zzp.simplehabit.R;
 import xyz.zzp.simplehabit.data.vo.SessionVO;
 import xyz.zzp.simplehabit.viewholders.CurrentSessionViewHolder;
 
-public class CurrentSessionAdapter extends BaseRecyclerAdapter<CurrentSessionViewHolder,SessionVO> {
-    public CurrentSessionAdapter(Context context) {
+public class SessionAdapter extends BaseRecyclerAdapter<CurrentSessionViewHolder,SessionVO> {
+    public SessionAdapter(Context context) {
         super(context);
     }
 

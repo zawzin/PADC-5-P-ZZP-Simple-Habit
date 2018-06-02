@@ -7,11 +7,16 @@ import android.view.ViewGroup;
 
 import xyz.zzp.simplehabit.R;
 import xyz.zzp.simplehabit.data.vo.ProgramVO;
+import xyz.zzp.simplehabit.delegates.TapCurrentProgramDelegate;
 import xyz.zzp.simplehabit.viewholders.ProgramViewHolder;
 
 public class ProgramAdapter extends BaseRecyclerAdapter<ProgramViewHolder,ProgramVO> {
-    public ProgramAdapter(Context context) {
+
+    private TapCurrentProgramDelegate mTapCurrentProgramDelegate;
+
+    public ProgramAdapter(Context context, TapCurrentProgramDelegate delegate) {
         super(context);
+        mTapCurrentProgramDelegate =delegate;
     }
 
     @NonNull
@@ -19,7 +24,7 @@ public class ProgramAdapter extends BaseRecyclerAdapter<ProgramViewHolder,Progra
     public ProgramViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        ProgramViewHolder programViewHolder = new ProgramViewHolder(layoutInflater.inflate(R.layout.item_card,parent,false));
+        ProgramViewHolder programViewHolder = new ProgramViewHolder(layoutInflater.inflate(R.layout.item_card,parent,false), mTapCurrentProgramDelegate);
         return programViewHolder;
     }
 

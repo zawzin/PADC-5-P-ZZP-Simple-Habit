@@ -2,8 +2,7 @@ package xyz.zzp.simplehabit.network.responses;
 
 import java.util.List;
 
-import xyz.zzp.simplehabit.data.vo.CategoryProgramVO;
-import xyz.zzp.simplehabit.data.vo.CurrentProgramVO;
+import xyz.zzp.simplehabit.data.vo.CategoryVO;
 
 public class GetCategoryProgramResponse {
 
@@ -11,7 +10,7 @@ public class GetCategoryProgramResponse {
     private String message;
     private String apiVersion;
     private String page;
-    private List<CategoryProgramVO> categoriesPrograms;
+    private List<CategoryVO> categoriesPrograms;
 
     public int getCode() {
         return code;
@@ -29,7 +28,7 @@ public class GetCategoryProgramResponse {
         return page;
     }
 
-    public List<CategoryProgramVO> getCategoryProgramList() {
+    public List<CategoryVO> getCategoryProgramList() {
         return categoriesPrograms;
     }
 }

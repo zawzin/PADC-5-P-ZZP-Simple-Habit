@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 
 import xyz.zzp.simplehabit.R;
 import xyz.zzp.simplehabit.data.vo.HomeScreenVO;
-import xyz.zzp.simplehabit.data.vo.CategoryProgramVO;
+import xyz.zzp.simplehabit.data.vo.CategoryVO;
 import xyz.zzp.simplehabit.data.vo.CurrentProgramVO;
 import xyz.zzp.simplehabit.data.vo.TopicsVO;
-import xyz.zzp.simplehabit.delegates.TapCurrentProgram;
+import xyz.zzp.simplehabit.delegates.TapCurrentProgramDelegate;
 import xyz.zzp.simplehabit.viewholders.BaseViewHolder;
 import xyz.zzp.simplehabit.viewholders.CategoryViewHolder;
 import xyz.zzp.simplehabit.viewholders.CurrentProgramViewHolder;
@@ -23,11 +23,11 @@ public class SeriesAdapter extends BaseRecyclerAdapter<BaseViewHolder, HomeScree
     private static final int CATEGORY = 1;
     private static final int ALL_TOPICS = 2;
 
-    private TapCurrentProgram mTapCurrentProgram;
+    private TapCurrentProgramDelegate mTapCurrentProgramDelegate;
 
-    public SeriesAdapter(Context context,TapCurrentProgram delegate) {
+    public SeriesAdapter(Context context,TapCurrentProgramDelegate delegate) {
         super(context);
-        mTapCurrentProgram = delegate;
+        mTapCurrentProgramDelegate = delegate;
     }
 
     @NonNull
@@ -37,11 +37,11 @@ public class SeriesAdapter extends BaseRecyclerAdapter<BaseViewHolder, HomeScree
         BaseViewHolder viewHolder = null;
         if(viewType == START_HERE){
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_current_program,parent,false);
-            viewHolder = new CurrentProgramViewHolder(itemView,mTapCurrentProgram);
+            viewHolder = new CurrentProgramViewHolder(itemView, mTapCurrentProgramDelegate);
         }
         else if(viewType == CATEGORY){
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category,parent,false);
-            viewHolder = new CategoryViewHolder(itemView);
+            viewHolder = new CategoryViewHolder(itemView,mTapCurrentProgramDelegate);
         }
         else if(viewType == ALL_TOPICS){
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_topic,parent,false);
@@ -59,7 +59,7 @@ public class SeriesAdapter extends BaseRecyclerAdapter<BaseViewHolder, HomeScree
     public int getItemViewType(int position) {
         if(mData.get(position) instanceof CurrentProgramVO)
             return START_HERE;
-        else if(mData.get(position) instanceof CategoryProgramVO)
+        else if(mData.get(position) instanceof CategoryVO)
             return CATEGORY;
         else if(mData.get(position) instanceof TopicsVO)
             return ALL_TOPICS;
