@@ -50,7 +50,6 @@ public class CurrentProgramViewHolder extends BaseViewHolder<CurrentProgramVO>{
 
     @Override
     public void onClick(View view) {
-        Toast.makeText(itemView.getContext(),"click current program",Toast.LENGTH_SHORT).show();
-        mTapCurrentProgramDelegate.onTapCurrentProgram(mCurrentProgramVO.getProgramId());
+        mTapCurrentProgramDelegate.onTapCurrentProgram();
     }
 }

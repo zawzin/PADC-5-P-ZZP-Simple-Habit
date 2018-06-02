@@ -6,7 +6,9 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import xyz.zzp.simplehabit.R;
+import xyz.zzp.simplehabit.data.vo.CategoryVO;
 import xyz.zzp.simplehabit.data.vo.ProgramVO;
+import xyz.zzp.simplehabit.delegates.TapCategoryProgramDelegate;
 import xyz.zzp.simplehabit.delegates.TapCurrentProgramDelegate;
 
 public class ProgramViewHolder extends BaseViewHolder<ProgramVO> {
@@ -14,14 +16,16 @@ public class ProgramViewHolder extends BaseViewHolder<ProgramVO> {
     @BindView(R.id.tv_program_title)
     TextView tvProgramTitle;
 
-    private TapCurrentProgramDelegate mTapCurrentProgramDelegate;
+    private TapCategoryProgramDelegate mTapCategoryProgramDelegate;
+
+    private CategoryVO mCategoryVO;
 
     private ProgramVO mProgram;
 
-    public ProgramViewHolder(View itemView,TapCurrentProgramDelegate delegate) {
+    public ProgramViewHolder(View itemView,TapCategoryProgramDelegate delegate) {
         super(itemView);
         ButterKnife.bind(this,itemView);
-        mTapCurrentProgramDelegate = delegate;
+        mTapCategoryProgramDelegate = delegate;
     }
 
     @Override
@@ -30,8 +34,12 @@ public class ProgramViewHolder extends BaseViewHolder<ProgramVO> {
         tvProgramTitle.setText(data.getTitle());
     }
 
+    public void setCategory(CategoryVO category){
+        mCategoryVO = category;
+    }
+
     @Override
     public void onClick(View view) {
-        mTapCurrentProgramDelegate.onTapCurrentProgram(mProgram.getProgramId());
+        mTapCategoryProgramDelegate.onTapCategoryProgramDelegate(mCategoryVO.getCategoryId(),mProgram.getProgramId());
     }
 }

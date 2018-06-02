@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ import xyz.zzp.simplehabit.R;
 import xyz.zzp.simplehabit.SimpleHabit;
 import xyz.zzp.simplehabit.adapters.SessionAdapter;
 import xyz.zzp.simplehabit.data.model.SeriesModel;
+import xyz.zzp.simplehabit.data.vo.CategoryVO;
 import xyz.zzp.simplehabit.data.vo.CurrentProgramVO;
 import xyz.zzp.simplehabit.data.vo.ProgramVO;
 import xyz.zzp.simplehabit.data.vo.SessionVO;
@@ -47,8 +49,17 @@ public class ProgramDetailActivity extends AppCompatActivity {
     private ProgramVO mProgramVO;
     private List<SessionVO> sessionList;
 
-    public static Intent newIntent(Context context){
+    public static Intent newIntentCategoryProgram(Context context,String categoryId,String categoryProgramId){
         Intent intent = new Intent(context,ProgramDetailActivity.class);
+        intent.putExtra(SimpleHabit.VIEW_TYPE,SimpleHabit.CATEGORY);
+        intent.putExtra(SimpleHabit.CATEGORY_ID,categoryId);
+        intent.putExtra(SimpleHabit.CATEGORY_PROGRAM_ID,categoryProgramId);
+        return intent;
+    }
+
+    public static Intent newIntentCurrentProgram(Context context){
+        Intent intent = new Intent(context,ProgramDetailActivity.class);
+        intent.putExtra(SimpleHabit.VIEW_TYPE,SimpleHabit.CURRENT_PROGRAM);
         return intent;
     }
 
@@ -59,36 +70,36 @@ public class ProgramDetailActivity extends AppCompatActivity {
 
         ButterKnife.bind(this,this);
         setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+
+        if(getSupportActionBar() != null) {
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+        }
 
         mSessionAdapter = new SessionAdapter(this);
         String programId = getIntent().getStringExtra(SimpleHabit.PROGRAM_ID);
-
-//        sessionList = SeriesModel.getsObjectInstance().getSessionByProgramId(programId);
-//        Log.i(SimpleHabit.LOG_TAG,"list siz"+sessionList.size());
-        if(SeriesModel.getsObjectInstance().getProgramsByProgramId(programId)!= null){
-            mCurrentProgramVO = SeriesModel.getsObjectInstance().getProgramsByProgramId(programId);
-            mSessionAdapter.setNewData(mCurrentProgramVO.getSessions());
-
-            tvTitle.setText(mCurrentProgramVO.getTitle());
-            tvDesc.setText(mCurrentProgramVO.getDescription());
-            if(tvDesc.getLineCount() < tvDesc.getMaxLines())
-                btnReadMore.setVisibility(View.GONE);
-        }
-        else if(SeriesModel.getsObjectInstance().getProgramByProgramId(programId)!= null){
-            mProgramVO = SeriesModel.getsObjectInstance().getProgramByProgramId(programId);
-            mSessionAdapter.setNewData(mProgramVO.getSessions());
-
-            tvTitle.setText(mProgramVO.getTitle());
-            tvDesc.setText(mProgramVO.getDescription());
-        }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false);
         rvSessions.setLayoutManager(linearLayoutManager);
         rvSessions.setAdapter(mSessionAdapter);
 
+
+        if(getIntent().getStringExtra(SimpleHabit.VIEW_TYPE).equals(SimpleHabit.CURRENT_PROGRAM)){
+            CurrentProgramVO currentProgram = SeriesModel.getsObjectInstance().getCurrentProgram();
+            mSessionAdapter.setNewData(currentProgram.getSessions());
+            tvTitle.setText(currentProgram.getTitle());
+            tvDesc.setText(currentProgram.getDescription());
+        }
+        else if(getIntent().getStringExtra(SimpleHabit.VIEW_TYPE).equals(SimpleHabit.CATEGORY)){
+            String categoryId = getIntent().getStringExtra(SimpleHabit.CATEGORY_ID);
+            String categoryProgramId = getIntent().getStringExtra(SimpleHabit.CATEGORY_PROGRAM_ID);
+
+            ProgramVO categoryProgram = SeriesModel.getsObjectInstance().getProgram(categoryId,categoryProgramId);
+            mSessionAdapter.setNewData(categoryProgram.getSessions());
+            tvTitle.setText(categoryProgram.getTitle());
+            tvDesc.setText(categoryProgram.getDescription());
+        }
     }
 }

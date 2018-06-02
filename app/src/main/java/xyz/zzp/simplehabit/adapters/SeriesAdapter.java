@@ -11,6 +11,7 @@ import xyz.zzp.simplehabit.data.vo.HomeScreenVO;
 import xyz.zzp.simplehabit.data.vo.CategoryVO;
 import xyz.zzp.simplehabit.data.vo.CurrentProgramVO;
 import xyz.zzp.simplehabit.data.vo.TopicsVO;
+import xyz.zzp.simplehabit.delegates.TapCategoryProgramDelegate;
 import xyz.zzp.simplehabit.delegates.TapCurrentProgramDelegate;
 import xyz.zzp.simplehabit.viewholders.BaseViewHolder;
 import xyz.zzp.simplehabit.viewholders.CategoryViewHolder;
@@ -24,10 +25,13 @@ public class SeriesAdapter extends BaseRecyclerAdapter<BaseViewHolder, HomeScree
     private static final int ALL_TOPICS = 2;
 
     private TapCurrentProgramDelegate mTapCurrentProgramDelegate;
+    private TapCategoryProgramDelegate mTapCategoryProgramDelegate;
 
-    public SeriesAdapter(Context context,TapCurrentProgramDelegate delegate) {
+    public SeriesAdapter(Context context, TapCurrentProgramDelegate currentProgramDelegate,
+                         TapCategoryProgramDelegate categoryProgramDelegate) {
         super(context);
-        mTapCurrentProgramDelegate = delegate;
+        mTapCurrentProgramDelegate = currentProgramDelegate;
+        mTapCategoryProgramDelegate = categoryProgramDelegate;
     }
 
     @NonNull
@@ -41,7 +45,7 @@ public class SeriesAdapter extends BaseRecyclerAdapter<BaseViewHolder, HomeScree
         }
         else if(viewType == CATEGORY){
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category,parent,false);
-            viewHolder = new CategoryViewHolder(itemView,mTapCurrentProgramDelegate);
+            viewHolder = new CategoryViewHolder(itemView,mTapCategoryProgramDelegate);
         }
         else if(viewType == ALL_TOPICS){
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_topic,parent,false);

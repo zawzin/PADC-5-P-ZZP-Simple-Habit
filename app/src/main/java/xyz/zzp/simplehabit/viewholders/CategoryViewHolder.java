@@ -10,6 +10,7 @@ import butterknife.ButterKnife;
 import xyz.zzp.simplehabit.R;
 import xyz.zzp.simplehabit.adapters.ProgramAdapter;
 import xyz.zzp.simplehabit.data.vo.CategoryVO;
+import xyz.zzp.simplehabit.delegates.TapCategoryProgramDelegate;
 import xyz.zzp.simplehabit.delegates.TapCurrentProgramDelegate;
 
 public class CategoryViewHolder extends BaseViewHolder<CategoryVO>{
@@ -20,15 +21,15 @@ public class CategoryViewHolder extends BaseViewHolder<CategoryVO>{
     @BindView(R.id.rv_programs)
     RecyclerView rvPrograms;
 
-    private TapCurrentProgramDelegate mTapCurrentProgramDelegate;
+    private TapCategoryProgramDelegate mTapCategoryProgramDelegate;
     private ProgramAdapter mProgramAdapter;
 
-    public CategoryViewHolder(View itemView,TapCurrentProgramDelegate delegate) {
+    public CategoryViewHolder(View itemView,TapCategoryProgramDelegate delegate) {
         super(itemView);
         ButterKnife.bind(this,itemView);
-        mTapCurrentProgramDelegate = delegate;
+        mTapCategoryProgramDelegate = delegate;
 
-        mProgramAdapter = new ProgramAdapter(itemView.getContext(),mTapCurrentProgramDelegate);
+        mProgramAdapter = new ProgramAdapter(itemView.getContext(),mTapCategoryProgramDelegate);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(itemView.getContext(),LinearLayoutManager.HORIZONTAL,false);
 
         rvPrograms.setLayoutManager(linearLayoutManager);
@@ -40,6 +41,7 @@ public class CategoryViewHolder extends BaseViewHolder<CategoryVO>{
     public void setData(CategoryVO data) {
         tvCategoryTitle.setText(data.getTitle());
         mProgramAdapter.setNewData(data.getPrograms());
+        mProgramAdapter.setCategory(data);
     }
     @Override
     public void onClick(View view) {

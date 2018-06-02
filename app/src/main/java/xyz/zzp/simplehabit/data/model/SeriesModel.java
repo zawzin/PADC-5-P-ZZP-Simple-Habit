@@ -40,49 +40,28 @@ public class SeriesModel {
         return seriesData;
     }
 
-    public ProgramVO getProgramByProgramId(String programId){
-        ProgramVO programVO = null;
+    public CurrentProgramVO getCurrentProgram(){
+        for(HomeScreenVO obj:seriesData){
+            if(obj instanceof CurrentProgramVO)
+                return (CurrentProgramVO)obj;
+        }
+        return null;
+    }
+
+    public ProgramVO getProgram(String categoryId,String categoryProgramId){
         for(int i=0; i<seriesData.size(); i++){
             if(seriesData.get(i) instanceof CategoryVO){
-                for(int j = 0; j<((CategoryVO) seriesData.get(i)).getPrograms().size(); j++){
-                    String id = ((CategoryVO) seriesData.get(i)).getPrograms().get(j).getProgramId();
-                    if(id.equals(programId))
-                        programVO = ((CategoryVO) seriesData.get(i)).getPrograms().get(j);
+                if(((CategoryVO) seriesData.get(i)).getCategoryId().equals(categoryId)){
+                    for(int j = 0; j < ((CategoryVO) seriesData.get(i)).getPrograms().size(); j++){
+                        if(((CategoryVO) seriesData.get(i)).getPrograms().get(j).getProgramId().equals(categoryProgramId)){
+                            return ((CategoryVO) seriesData.get(i)).getPrograms().get(j);
+                        }
+                    }
                 }
             }
         }
-        return programVO;
+        return null;
     }
-
-    public CurrentProgramVO getProgramsByProgramId(String programId){
-        CurrentProgramVO currentProgramVO = null;
-        for(int i=0; i<seriesData.size(); i++){
-            if(seriesData.get(i) instanceof CurrentProgramVO){
-                if(((CurrentProgramVO) seriesData.get(i)).getProgramId().equals(programId))
-                    currentProgramVO = (CurrentProgramVO)seriesData.get(i);
-            }
-        }
-        return currentProgramVO;
-    }
-
-//    public List<SessionVO> getSessionByProgramId(String programId){
-//        List<SessionVO> sessionList = new ArrayList<>();
-//        for(int i=0; i<seriesData.size();i++){
-//            if(seriesData.get(i) instanceof CurrentProgramVO){
-//                String id = ((CurrentProgramVO) seriesData.get(i)).getProgramId();
-//                if(id.equals(programId))
-//                    sessionList = ((CurrentProgramVO) seriesData.get(i)).getSessions();
-//            }
-//            else if(seriesData.get(i) instanceof CategoryVO){
-//                for(int j = 0; j<((CategoryVO) seriesData.get(i)).getPrograms().size(); j++){
-//                    String id = ((CategoryVO) seriesData.get(i)).getPrograms().get(j).getProgramId();
-//                    if(id.equals(programId))
-//                        sessionList = ((CategoryVO) seriesData.get(i)).getPrograms().get(j).getSessions();
-//                }
-//            }
-//        }
-//        return sessionList;
-//    }
 
     public void loadData(){
         RetrofitDataAgent.getsObjectInstance().loadCurrentProgram();

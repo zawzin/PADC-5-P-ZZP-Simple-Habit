@@ -7,7 +7,7 @@ import butterknife.BindView;
 import xyz.zzp.simplehabit.R;
 import xyz.zzp.simplehabit.data.vo.SessionVO;
 
-public class CurrentSessionViewHolder extends BaseViewHolder<SessionVO> {
+public class SessionViewHolder extends BaseViewHolder<SessionVO> {
 
     @BindView(R.id.tv_session_no)
     TextView tvSessionNo;
@@ -18,7 +18,7 @@ public class CurrentSessionViewHolder extends BaseViewHolder<SessionVO> {
     @BindView(R.id.tv_session_time)
     TextView tvSessiontime;
 
-    public CurrentSessionViewHolder(View itemView) {
+    public SessionViewHolder(View itemView) {
         super(itemView);
     }
 
