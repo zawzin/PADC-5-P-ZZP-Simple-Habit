@@ -7,14 +7,12 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
-import xyz.zzp.simplehabit.HomeScreenVO;
+import xyz.zzp.simplehabit.data.vo.HomeScreenVO;
 import xyz.zzp.simplehabit.events.DataReadyEvent;
 import xyz.zzp.simplehabit.events.LoadedCategoryProgramEvent;
 import xyz.zzp.simplehabit.events.LoadedCurrentProgramEvent;
-import xyz.zzp.simplehabit.events.LoadedSimpleHabitEvent;
 import xyz.zzp.simplehabit.events.LoadedTopicEvent;
 import xyz.zzp.simplehabit.network.RetrofitDataAgent;
-import xyz.zzp.simplehabit.network.SimpleHabitDataAgent;
 
 public class SeriesModel {
 
@@ -32,6 +30,10 @@ public class SeriesModel {
         if(sObjectInstance == null)
             sObjectInstance = new SeriesModel();
         return sObjectInstance;
+    }
+
+    public List<HomeScreenVO> getSeriesData() {
+        return seriesData;
     }
 
     public void loadData(){

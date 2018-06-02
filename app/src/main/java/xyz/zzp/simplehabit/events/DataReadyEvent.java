@@ -1,9 +1,8 @@
 package xyz.zzp.simplehabit.events;
 
-import java.util.Collection;
 import java.util.List;
 
-import xyz.zzp.simplehabit.HomeScreenVO;
+import xyz.zzp.simplehabit.data.vo.HomeScreenVO;
 
 public class DataReadyEvent {
 

@@ -4,8 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import xyz.zzp.simplehabit.HomeScreenVO;
-
 public class CurrentProgramVO implements HomeScreenVO{
 
     @SerializedName("program-id")

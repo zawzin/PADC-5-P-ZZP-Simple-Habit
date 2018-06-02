@@ -2,8 +2,6 @@ package xyz.zzp.simplehabit.data.vo;
 
 import com.google.gson.annotations.SerializedName;
 
-import xyz.zzp.simplehabit.HomeScreenVO;
-
 public class TopicsVO implements HomeScreenVO{
 
     @SerializedName("topic-name")

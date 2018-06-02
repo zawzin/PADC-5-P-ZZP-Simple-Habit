@@ -1,6 +1,8 @@
 package xyz.zzp.simplehabit.network;
 
+import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.View;
 
 import com.google.gson.Gson;
 
@@ -17,6 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import xyz.zzp.simplehabit.events.LoadedCategoryProgramEvent;
 import xyz.zzp.simplehabit.events.LoadedCurrentProgramEvent;
 import xyz.zzp.simplehabit.events.LoadedTopicEvent;
+import xyz.zzp.simplehabit.events.NetworkErrorEvent;
 import xyz.zzp.simplehabit.network.responses.GetCategoryProgramResponse;
 import xyz.zzp.simplehabit.network.responses.GetCurrentProgramResponse;
 import xyz.zzp.simplehabit.network.responses.GetTopicResponse;
@@ -66,6 +69,8 @@ public class RetrofitDataAgent implements SimpleHabitDataAgent {
             @Override
             public void onFailure(Call<GetCurrentProgramResponse> call, Throwable t) {
                 Log.i("Error-Current",t.getMessage());
+                NetworkErrorEvent networkErrorEvent = new NetworkErrorEvent();
+                EventBus.getDefault().post(networkErrorEvent);
             }
         });
     }
@@ -86,7 +91,8 @@ public class RetrofitDataAgent implements SimpleHabitDataAgent {
 
             @Override
             public void onFailure(Call<GetTopicResponse> call, Throwable t) {
-
+                NetworkErrorEvent networkErrorEvent = new NetworkErrorEvent();
+                EventBus.getDefault().post(networkErrorEvent);
             }
         });
     }
@@ -107,7 +113,8 @@ public class RetrofitDataAgent implements SimpleHabitDataAgent {
 
             @Override
             public void onFailure(Call<GetCategoryProgramResponse> call, Throwable t) {
-
+                NetworkErrorEvent networkErrorEvent = new NetworkErrorEvent();
+                EventBus.getDefault().post(networkErrorEvent);
             }
         });
     }

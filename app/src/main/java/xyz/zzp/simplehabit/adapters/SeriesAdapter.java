@@ -7,10 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import xyz.zzp.simplehabit.R;
-import xyz.zzp.simplehabit.HomeScreenVO;
+import xyz.zzp.simplehabit.data.vo.HomeScreenVO;
 import xyz.zzp.simplehabit.data.vo.CategoryProgramVO;
 import xyz.zzp.simplehabit.data.vo.CurrentProgramVO;
 import xyz.zzp.simplehabit.data.vo.TopicsVO;
+import xyz.zzp.simplehabit.delegates.TapCurrentProgram;
 import xyz.zzp.simplehabit.viewholders.BaseViewHolder;
 import xyz.zzp.simplehabit.viewholders.CategoryViewHolder;
 import xyz.zzp.simplehabit.viewholders.CurrentProgramViewHolder;
@@ -22,8 +23,11 @@ public class SeriesAdapter extends BaseRecyclerAdapter<BaseViewHolder, HomeScree
     private static final int CATEGORY = 1;
     private static final int ALL_TOPICS = 2;
 
-    public SeriesAdapter(Context context) {
+    private TapCurrentProgram mTapCurrentProgram;
+
+    public SeriesAdapter(Context context,TapCurrentProgram delegate) {
         super(context);
+        mTapCurrentProgram = delegate;
     }
 
     @NonNull
@@ -33,7 +37,7 @@ public class SeriesAdapter extends BaseRecyclerAdapter<BaseViewHolder, HomeScree
         BaseViewHolder viewHolder = null;
         if(viewType == START_HERE){
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_current_program,parent,false);
-            viewHolder = new CurrentProgramViewHolder(itemView);
+            viewHolder = new CurrentProgramViewHolder(itemView,mTapCurrentProgram);
         }
         else if(viewType == CATEGORY){
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category,parent,false);
