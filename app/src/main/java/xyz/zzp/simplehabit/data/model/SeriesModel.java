@@ -68,7 +68,7 @@ public class SeriesModel {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void loadCurrentProgram(LoadedCurrentProgramEvent event){
+    public void loadData(LoadedCurrentProgramEvent event){
         seriesData.add(event.getCurrentProgram());
         RetrofitDataAgent.getsObjectInstance().loadCategories();
     }

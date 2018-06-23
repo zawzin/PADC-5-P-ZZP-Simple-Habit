@@ -69,7 +69,7 @@ public class RetrofitDataAgent implements SimpleHabitDataAgent {
             @Override
             public void onFailure(Call<GetCurrentProgramResponse> call, Throwable t) {
                 Log.i("Error-Current",t.getMessage());
-                NetworkErrorEvent networkErrorEvent = new NetworkErrorEvent();
+                NetworkErrorEvent networkErrorEvent = new NetworkErrorEvent(t.getMessage());
                 EventBus.getDefault().post(networkErrorEvent);
             }
         });
@@ -91,7 +91,7 @@ public class RetrofitDataAgent implements SimpleHabitDataAgent {
 
             @Override
             public void onFailure(Call<GetTopicResponse> call, Throwable t) {
-                NetworkErrorEvent networkErrorEvent = new NetworkErrorEvent();
+                NetworkErrorEvent networkErrorEvent = new NetworkErrorEvent(t.getMessage());
                 EventBus.getDefault().post(networkErrorEvent);
             }
         });
@@ -113,7 +113,7 @@ public class RetrofitDataAgent implements SimpleHabitDataAgent {
 
             @Override
             public void onFailure(Call<GetCategoryProgramResponse> call, Throwable t) {
-                NetworkErrorEvent networkErrorEvent = new NetworkErrorEvent();
+                NetworkErrorEvent networkErrorEvent = new NetworkErrorEvent(t.getMessage());
                 EventBus.getDefault().post(networkErrorEvent);
             }
         });

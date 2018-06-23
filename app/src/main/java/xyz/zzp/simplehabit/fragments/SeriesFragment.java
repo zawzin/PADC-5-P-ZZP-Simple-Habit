@@ -1,6 +1,5 @@
 package xyz.zzp.simplehabit.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,34 +11,32 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import xyz.zzp.simplehabit.R;
-import xyz.zzp.simplehabit.SimpleHabit;
 import xyz.zzp.simplehabit.activities.ProgramDetailActivity;
 import xyz.zzp.simplehabit.adapters.SeriesAdapter;
-import xyz.zzp.simplehabit.data.model.SeriesModel;
+import xyz.zzp.simplehabit.data.vo.HomeScreenVO;
 import xyz.zzp.simplehabit.delegates.TapCategoryProgramDelegate;
 import xyz.zzp.simplehabit.delegates.TapCurrentProgramDelegate;
-import xyz.zzp.simplehabit.events.DataReadyEvent;
-import xyz.zzp.simplehabit.events.NetworkErrorEvent;
+import xyz.zzp.simplehabit.mvp.presenters.HomeScreenPresenter;
+import xyz.zzp.simplehabit.mvp.views.HomeScreenView;
 
-public class SeriesFragment extends Fragment {
+public class SeriesFragment extends Fragment implements HomeScreenView{
 
     @BindView(R.id.rv_list)
     RecyclerView rvList;
 
     private SeriesAdapter mSeriesAdapter;
 
+    private HomeScreenPresenter mPresenter;
+
     private TapCurrentProgramDelegate mCurrentProgramDelegate;
 
     private TapCategoryProgramDelegate mCategoryProgramDelegate;
-//
+
     public SeriesFragment() {
     }
 
@@ -49,7 +46,11 @@ public class SeriesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_series,container,false);
         ButterKnife.bind(this,view);
 
-        SeriesModel.getsObjectInstance().loadData();
+        mPresenter = new HomeScreenPresenter(this);
+        mPresenter.onCreate();
+
+        mCurrentProgramDelegate = mPresenter;
+        mCategoryProgramDelegate = mPresenter;
 
 
         mSeriesAdapter = new SeriesAdapter(getContext(),mCurrentProgramDelegate,mCategoryProgramDelegate);
@@ -61,32 +62,44 @@ public class SeriesFragment extends Fragment {
 
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mCurrentProgramDelegate = (TapCurrentProgramDelegate) context;
-        mCategoryProgramDelegate = (TapCategoryProgramDelegate) context;
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        homeScreenView = (HomeScreenView) context;
+//    }
 
     @Override
     public void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
+        mPresenter.onStart();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        EventBus.getDefault().unregister(this);
+        mPresenter.onStop();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void loadedData(DataReadyEvent event){
-        mSeriesAdapter.setNewData(event.getSeriesData());
+    @Override
+    public void displayHomeScreen(List<HomeScreenVO> list) {
+        mSeriesAdapter.setNewData(list);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void networkError(NetworkErrorEvent event){
-        Snackbar.make(rvList.getRootView(),"Netword Error!",Snackbar.LENGTH_INDEFINITE).show();
+    @Override
+    public void lunchDetail() {
+        Intent intent = ProgramDetailActivity.newIntentCurrentProgram(getContext());
+        startActivity(intent);
     }
+
+    @Override
+    public void lunchDetail(String categoryId, String categoryProgramId) {
+        Intent intent = ProgramDetailActivity.newIntentCategoryProgram(getContext(),categoryId,categoryProgramId);
+        startActivity(intent);
+    }
+
+    @Override
+    public void dispalyErrorMessage(String errorMsg) {
+        Snackbar.make(rvList, errorMsg, Snackbar.LENGTH_INDEFINITE).show();
+    }
+
 }
