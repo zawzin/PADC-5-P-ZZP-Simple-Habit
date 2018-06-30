@@ -1,61 +1,45 @@
 package xyz.zzp.simplehabit.mvp.presenters;
 
+import android.arch.lifecycle.MutableLiveData;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.List;
+
 import xyz.zzp.simplehabit.data.model.SeriesModel;
+import xyz.zzp.simplehabit.data.vo.HomeScreenVO;
 import xyz.zzp.simplehabit.delegates.TapCategoryProgramDelegate;
 import xyz.zzp.simplehabit.delegates.TapCurrentProgramDelegate;
 import xyz.zzp.simplehabit.events.DataReadyEvent;
 import xyz.zzp.simplehabit.events.NetworkErrorEvent;
-import xyz.zzp.simplehabit.mvp.views.HomeScreenView;
+import xyz.zzp.simplehabit.mvp.views.SeriesScreenView;
 
-public class HomeScreenPresenter extends BasePresenter<HomeScreenView> implements TapCurrentProgramDelegate
-    ,TapCategoryProgramDelegate{
-    public HomeScreenPresenter(HomeScreenView mView) {
-        super(mView);
-    }
+public class HomeScreenPresenter extends BasePresenter<SeriesScreenView>
+        implements TapCurrentProgramDelegate, TapCategoryProgramDelegate{
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        SeriesModel.getsObjectInstance().loadData();
-    }
+    private MutableLiveData<List<HomeScreenVO>> mSeriesScreenLD;
 
     @Override
-    public void onStart() {
-        super.onStart();
-        if(!EventBus.getDefault().isRegistered(this))
-            EventBus.getDefault().register(this);
+    public void initPresenter(SeriesScreenView mView) {
+        super.initPresenter(mView);
+        mSeriesScreenLD = new MutableLiveData<>();
+        SeriesModel.getsObjectInstance().loadData(mSeriesScreenLD,mErrorLD);
+
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        if(EventBus.getDefault().isRegistered(this))
-            EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onDataLoaded(DataReadyEvent event){
-        if (event != null){
-            mView.displayHomeScreen(event.getSeriesData());
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onDataLoadedError(NetworkErrorEvent event){
-        mView.dispalyErrorMessage(event.getErrorMsg());
+    public MutableLiveData<List<HomeScreenVO>> getmSeriesScreenLD() {
+        return mSeriesScreenLD;
     }
 
     @Override
     public void onTapCategoryProgramDelegate(String categoryId, String categoryProgramId) {
-        mView.lunchDetail(categoryId,categoryProgramId);
+        mView.lunchCategoryProgramDetail(categoryId,categoryProgramId);
     }
 
     @Override
     public void onTapCurrentProgram() {
-        mView.lunchDetail();
+        mView.lunchCurrentProgramDetail();
     }
 }

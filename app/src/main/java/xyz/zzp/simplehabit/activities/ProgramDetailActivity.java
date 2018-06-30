@@ -1,5 +1,6 @@
 package xyz.zzp.simplehabit.activities;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,24 +10,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import xyz.zzp.simplehabit.R;
 import xyz.zzp.simplehabit.SimpleHabit;
 import xyz.zzp.simplehabit.adapters.SessionAdapter;
-import xyz.zzp.simplehabit.data.model.SeriesModel;
-import xyz.zzp.simplehabit.data.vo.CategoryVO;
 import xyz.zzp.simplehabit.data.vo.CurrentProgramVO;
 import xyz.zzp.simplehabit.data.vo.ProgramVO;
-import xyz.zzp.simplehabit.data.vo.SessionVO;
+import xyz.zzp.simplehabit.mvp.presenters.DetailScreenPresenter;
+import xyz.zzp.simplehabit.mvp.views.DetailScreenView;
 
-public class ProgramDetailActivity extends AppCompatActivity {
+public class ProgramDetailActivity extends AppCompatActivity implements DetailScreenView{
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -45,9 +41,7 @@ public class ProgramDetailActivity extends AppCompatActivity {
 
     private SessionAdapter mSessionAdapter;
 
-    private CurrentProgramVO mCurrentProgramVO;
-    private ProgramVO mProgramVO;
-    private List<SessionVO> sessionList;
+    private DetailScreenPresenter mPresenter;
 
     public static Intent newIntentCategoryProgram(Context context,String categoryId,String categoryProgramId){
         Intent intent = new Intent(context,ProgramDetailActivity.class);
@@ -78,8 +72,10 @@ public class ProgramDetailActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
         }
 
+        mPresenter = ViewModelProviders.of(this).get(DetailScreenPresenter.class);
+        mPresenter.initPresenter(this);
+
         mSessionAdapter = new SessionAdapter(this);
-        String programId = getIntent().getStringExtra(SimpleHabit.PROGRAM_ID);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false);
         rvSessions.setLayoutManager(linearLayoutManager);
@@ -87,19 +83,34 @@ public class ProgramDetailActivity extends AppCompatActivity {
 
 
         if(getIntent().getStringExtra(SimpleHabit.VIEW_TYPE).equals(SimpleHabit.CURRENT_PROGRAM)){
-            CurrentProgramVO currentProgram = SeriesModel.getsObjectInstance().getCurrentProgram();
-            mSessionAdapter.setNewData(currentProgram.getSessions());
-            tvTitle.setText(currentProgram.getTitle());
-            tvDesc.setText(currentProgram.getDescription());
+            mPresenter.onDetectCurrentProgram();
         }
         else if(getIntent().getStringExtra(SimpleHabit.VIEW_TYPE).equals(SimpleHabit.CATEGORY)){
             String categoryId = getIntent().getStringExtra(SimpleHabit.CATEGORY_ID);
             String categoryProgramId = getIntent().getStringExtra(SimpleHabit.CATEGORY_PROGRAM_ID);
 
-            ProgramVO categoryProgram = SeriesModel.getsObjectInstance().getProgram(categoryId,categoryProgramId);
-            mSessionAdapter.setNewData(categoryProgram.getSessions());
-            tvTitle.setText(categoryProgram.getTitle());
-            tvDesc.setText(categoryProgram.getDescription());
+            mPresenter.onDetectCategoryProgram(categoryId,categoryProgramId);
         }
+    }
+
+    @Override
+    public void displayCurrentProgram(CurrentProgramVO currentProgramVO) {
+        CurrentProgramVO currentProgram = currentProgramVO;
+        mSessionAdapter.setNewData(currentProgram.getSessions());
+        tvTitle.setText(currentProgram.getTitle());
+        tvDesc.setText(currentProgram.getDescription());
+    }
+
+    @Override
+    public void displayCategoryProgram(ProgramVO programVO) {
+        ProgramVO categoryProgram = programVO;
+        mSessionAdapter.setNewData(categoryProgram.getSessions());
+        tvTitle.setText(categoryProgram.getTitle());
+        tvDesc.setText(categoryProgram.getDescription());
+    }
+
+    @Override
+    public void displayErrorBV(String errorMsg) {
+
     }
 }

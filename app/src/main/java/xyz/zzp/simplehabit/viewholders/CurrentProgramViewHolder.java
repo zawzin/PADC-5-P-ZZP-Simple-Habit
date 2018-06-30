@@ -44,7 +44,7 @@ public class CurrentProgramViewHolder extends BaseViewHolder<CurrentProgramVO>{
 
         int[] averageLength = data.getAverageLength();
         tvTitle.setText(data.getTitle());
-        tvLength.setText(averageLength[0]+" mins");
+        tvLength.setText(data.getAverageLengthTime()+" mins");
         tvCurrentPeriod.setText(data.getCurrentPeriod());
     }
 
